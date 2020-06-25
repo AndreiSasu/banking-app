@@ -38,9 +38,6 @@ public class ValidWorkingHoursValidator implements ConstraintValidator<ValidWork
             final int startDay = getDayOfWeek(validWorkingDays.split("-")[0]);
             final int endDay = getDayOfWeek(validWorkingDays.split("-")[1]);
 
-
-//            int currentHourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-//            int currentMinuteOfDay = Calendar.getInstance().get(Calendar.MINUTE);
             int currentDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
             final Calendar currentCalendar = Calendar.getInstance();

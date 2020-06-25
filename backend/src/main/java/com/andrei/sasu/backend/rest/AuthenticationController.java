@@ -1,10 +1,10 @@
 package com.andrei.sasu.backend.rest;
 
 
-import com.andrei.sasu.backend.model.JwtResponse;
+import com.andrei.sasu.backend.model.JWTTokenResponse;
 import com.andrei.sasu.backend.model.LoginRequest;
 import com.andrei.sasu.backend.security.UserDetailsImpl;
-import com.andrei.sasu.backend.security.jwt.JwtUtils;
+import com.andrei.sasu.backend.security.jwt.JWTUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,15 +24,15 @@ import java.util.stream.Collectors;
 public class AuthenticationController {
 
     private AuthenticationManager authenticationManager;
-    private JwtUtils jwtUtils;
+    private JWTUtils jwtUtils;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public AuthenticationController(AuthenticationManager authenticationManager, JWTUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JWTTokenResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
@@ -45,7 +45,7 @@ public class AuthenticationController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
+        return ResponseEntity.ok(new JWTTokenResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 roles));

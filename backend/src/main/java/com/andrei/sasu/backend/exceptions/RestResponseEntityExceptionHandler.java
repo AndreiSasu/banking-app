@@ -21,10 +21,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         this.objectMapper = objectMapper;
     }
 
-    @ExceptionHandler(value
-            = { AccountAlreadyExistsException.class })
-    protected ResponseEntity<Object> handleConflict(
-            RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(value = { AccountAlreadyExistsException.class })
+    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
         ErrorMessage responseBody = new ErrorMessage(ex.getMessage(),
                 Instant.now().getEpochSecond(),
                 HttpStatus.CONFLICT.value(),
