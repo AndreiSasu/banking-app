@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { LoginRequest } from '../model';
+import { LoginRequest, LoginSuccessfulEvent } from '../model';
 import { TokenStorageService } from '../services/token-storage.service';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   error: any;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService,
-              private router: Router, private tokenStorageService: TokenStorageService) { }
+              private router: Router, private tokenStorageService: TokenStorageService,
+              private eventService: EventService<LoginSuccessfulEvent>) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
         jwtToken => {
           this.tokenStorageService.saveToken(jwtToken.accessToken);
           this.router.navigate(['/home']);
+          this.eventService.getSubject().next(new LoginSuccessfulEvent());
         },
         error => {
           this.error = error;
