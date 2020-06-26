@@ -1,5 +1,6 @@
 package com.andrei.sasu.backend.service;
 
+import com.andrei.sasu.backend.model.AccountDTO;
 import com.andrei.sasu.backend.model.CreateAccountRequest;
 import com.andrei.sasu.backend.model.entities.Account;
 import com.andrei.sasu.backend.model.entities.User;
@@ -27,7 +28,7 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public Account createAccount(@ValidWorkingHours @OneSavingsAccountPerUser CreateAccountRequest createAccountRequest, String userName) {
+    public AccountDTO createAccount(@ValidWorkingHours @OneSavingsAccountPerUser CreateAccountRequest createAccountRequest, String userName) {
         final User user = this.userRepository.findByUserName(userName)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("User with name %s does not exist.", userName)));
 
@@ -37,6 +38,8 @@ public class AccountsServiceImpl implements AccountsService {
         account.setIban(faker.finance().iban());
         account.setOwner(user);
 
-        return accountRepository.save(account);
+        accountRepository.save(account);
+
+        return new AccountDTO(account.getIban(), account.getCurrency());
     }
 }

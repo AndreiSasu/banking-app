@@ -32,7 +32,7 @@ public class OneSavingsAccountValidator implements ConstraintValidator<OneSaving
     public boolean isValid(CreateAccountRequest createAccountRequest, ConstraintValidatorContext context) {
         if(AccountType.SAVINGS.equals(createAccountRequest.getAccountType())) {
             final String username = authenticationFacade.getLoggedInUserName();
-            final User user = userRepository.findByUserName(username).orElseThrow(() -> new IllegalStateException("User name does not exist."));
+            final User user = userRepository.findByUserName(username).orElseThrow(() -> new IllegalArgumentException("User name does not exist."));
             final Set<Account> accounts = user.getAccounts();
             if(!CollectionUtils.isEmpty(accounts)) {
                 return accounts.stream().noneMatch(account -> AccountType.SAVINGS.equals(account.getAccountType()));

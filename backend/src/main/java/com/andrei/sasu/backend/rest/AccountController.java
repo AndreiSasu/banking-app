@@ -1,7 +1,7 @@
 package com.andrei.sasu.backend.rest;
 
+import com.andrei.sasu.backend.model.AccountDTO;
 import com.andrei.sasu.backend.model.CreateAccountRequest;
-import com.andrei.sasu.backend.model.CreateAccountResponse;
 import com.andrei.sasu.backend.security.AuthenticationFacade;
 import com.andrei.sasu.backend.service.AccountsService;
 import org.slf4j.Logger;
@@ -30,10 +30,8 @@ public class AccountController {
 
     //only basic validation is performed at controller level, business logic validation is performed in the service layer;
     @PostMapping(path = "/accounts")
-    public ResponseEntity<CreateAccountResponse> createAccount(final @Valid @RequestBody CreateAccountRequest createAccountRequest) {
+    public ResponseEntity<AccountDTO> createAccount(final @Valid @RequestBody CreateAccountRequest createAccountRequest) {
         logger.debug("{}", createAccountRequest);
-        final CreateAccountResponse createAccountResponse = new CreateAccountResponse();
-        createAccountResponse.setAccountId(accountsService.createAccount(createAccountRequest, authenticationFacade.getLoggedInUserName()).getIban());
-        return ResponseEntity.ok().body(createAccountResponse);
+        return ResponseEntity.ok().body(accountsService.createAccount(createAccountRequest, authenticationFacade.getLoggedInUserName()));
     }
 }
