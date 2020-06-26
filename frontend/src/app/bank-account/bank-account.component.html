@@ -1,1 +1,35 @@
-<p>bank-account works!</p>
+<p>Create bank account:</p>
+
+<div class="col-md-12">
+    <div *ngIf="error">{{error | json}}</div>
+    <form [formGroup]="createBankAccountForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="accountType">AccountType</label>
+            <select id="accountType" (change)="changeAccountType($event)" formControlName="accountType"
+                class="form-control">
+                <option value="" selected disabled hidden>Choose account type</option>
+                <option *ngFor="let accountType of accountTypes" [ngValue]="accountType">{{accountType}}
+                </option>
+            </select>
+            <div *ngIf="isSubmitted && f.accountType.errors?.required">
+                <p class="text-danger">Account type is required.</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select id="currency" (change)="changeCurrency($event)" formControlName="currency" class="form-control">
+                <option value="" selected disabled hidden>Choose currency</option>
+                <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency}}
+                </option>
+            </select>
+            <div *ngIf="isSubmitted && f.accountType.errors?.required">
+                <p class="text-danger">Currency is required.</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger btn-lg btn-block">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>

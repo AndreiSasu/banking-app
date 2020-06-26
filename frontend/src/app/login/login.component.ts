@@ -33,6 +33,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     console.log('submitting');
     this.submitted = true;
+
+    if (this.loginForm.invalid) {
+        return;
+    }
+
     const loginRequest = new LoginRequest();
     loginRequest.userName = this.f.username.value;
     loginRequest.password = this.f.password.value;
