@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         jwtToken => {
           this.tokenStorageService.saveToken(jwtToken.accessToken);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/bank-account']);
           this.eventService.getSubject().next(new LoginSuccessfulEvent());
         },
         error => {
