@@ -22,9 +22,9 @@ public class ValidWorkingHoursValidator implements ConstraintValidator<ValidWork
     @Override
     public boolean isValid(CreateAccountRequest createAccountRequest, ConstraintValidatorContext context) {
 
-        int currentDayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-
         final Calendar currentCalendar = Calendar.getInstance();
+        int currentDayOfWeek = currentCalendar.get(Calendar.DAY_OF_WEEK);
+
         final Calendar startCalendar = Calendar.getInstance();
 
         startCalendar.set(Calendar.HOUR_OF_DAY, workingHours.getStartHour());
@@ -34,9 +34,10 @@ public class ValidWorkingHoursValidator implements ConstraintValidator<ValidWork
         endCalendar.set(Calendar.HOUR_OF_DAY, workingHours.getEndHour());
         endCalendar.set(Calendar.MINUTE, workingHours.getEndMinute());
 
-        return (currentDayOfWeek >= workingHours.getStartDayOfWeek() && currentDayOfWeek <= workingHours.getEndDayOfWeek())
-                && currentCalendar.after(startCalendar) && currentCalendar.before(endCalendar);
+        boolean isWorkingDay = (currentDayOfWeek >= workingHours.getStartDayOfWeek() && currentDayOfWeek <= workingHours.getEndDayOfWeek());
+        boolean isWorkingHours = currentCalendar.after(startCalendar) && currentCalendar.before(endCalendar);
 
+        return isWorkingDay && isWorkingHours;
     }
 }
 
