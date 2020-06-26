@@ -1,7 +1,7 @@
-<p>Create bank account:</p>
-<div *ngIf="bankAccount">{{bankAccount | json }}</div>
+<h1>Create bank account:</h1>
+<div *ngIf="bankAccount" class="alert alert-success">{{bankAccount | json }}</div>
 <div class="col-md-12">
-    <div *ngIf="error">{{error | json}}</div>
+    <div *ngIf="error" class="alert alert-danger">{{error | json}}</div>
     <form [formGroup]="createBankAccountForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="accountType">AccountType</label>

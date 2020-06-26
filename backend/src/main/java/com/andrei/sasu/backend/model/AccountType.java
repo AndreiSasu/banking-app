@@ -1,7 +1,5 @@
 package com.andrei.sasu.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public enum AccountType {
     SAVINGS("SAVINGS");
 
