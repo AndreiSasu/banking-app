@@ -7,6 +7,7 @@ import com.andrei.sasu.backend.service.AccountsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AccountController {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
