@@ -1,5 +1,5 @@
 <p>Create bank account:</p>
-
+<div *ngIf="bankAccount">{{bankAccount | json }}</div>
 <div class="col-md-12">
     <div *ngIf="error">{{error | json}}</div>
     <form [formGroup]="createBankAccountForm" (ngSubmit)="onSubmit()">
@@ -8,7 +8,7 @@
             <select id="accountType" (change)="changeAccountType($event)" formControlName="accountType"
                 class="form-control">
                 <option value="" selected disabled hidden>Choose account type</option>
-                <option *ngFor="let accountType of accountTypes" [ngValue]="accountType">{{accountType}}
+                <option *ngFor="let accountType of accountTypes" [value]="accountType">{{accountType}}
                 </option>
             </select>
             <div *ngIf="isSubmitted && f.accountType.errors?.required">
@@ -19,7 +19,7 @@
             <label for="currency">Currency</label>
             <select id="currency" (change)="changeCurrency($event)" formControlName="currency" class="form-control">
                 <option value="" selected disabled hidden>Choose currency</option>
-                <option *ngFor="let currency of currencies" [ngValue]="currency">{{currency}}
+                <option *ngFor="let currency of currencies" [value]="currency">{{currency}}
                 </option>
             </select>
             <div *ngIf="isSubmitted && f.accountType.errors?.required">

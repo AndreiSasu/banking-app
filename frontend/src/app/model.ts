@@ -3,6 +3,16 @@ export class LoginRequest {
   password: string;
 }
 
+export class CreateAccountRequest {
+    accountType: string;
+    currency: string;
+}
+
+export class BankAccount {
+    iban: string;
+}
+
 export class LoginSuccessfulEvent {
     constructor() {}
 }
+
