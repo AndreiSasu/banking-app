@@ -27,7 +27,7 @@ public class WorkingHours {
     private static final String REGEXP_HOURS_RANGE = "^((?:[01]\\d|2[0-3]):[0-5]\\d)-((?:[01]\\d|2[0-3]):[0-5]\\d)$";
 
     //Mon-Fri
-    private static final String REGEXP_DAYS_OF_WEEK_RANGE = "^(Sun|Mon|Tue|Wed|Thu|Fri)-(Sun|Mon|Tue|Wed|Thu|Fri)$";
+    private static final String REGEXP_DAYS_OF_WEEK_RANGE = "^(Sun|Sat|Mon|Tue|Wed|Thu|Fri)-(Sun|Sat|Mon|Tue|Wed|Thu|Fri)$";
 
     public WorkingHours(@Value("${app.valid.working.hours}") String validWorkingHours,
                         @Value("${app.valid.working.days}") String validWorkingDays) throws ParseException {

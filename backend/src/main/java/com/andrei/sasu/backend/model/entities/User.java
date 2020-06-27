@@ -1,6 +1,7 @@
 package com.andrei.sasu.backend.model.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class User {
 
     @NotBlank
     @Size(max = 20)
+    @Column(unique = true)
     private String userName;
 
     @NotBlank

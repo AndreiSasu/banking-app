@@ -40,6 +40,6 @@ public class AccountsServiceImpl implements AccountsService {
 
         accountRepository.save(account);
 
-        return new AccountDTO(account.getIban(), account.getCurrency());
+        return new AccountDTO(account.getIban(), account.getCurrency(), account.getAccountType());
     }
 }
