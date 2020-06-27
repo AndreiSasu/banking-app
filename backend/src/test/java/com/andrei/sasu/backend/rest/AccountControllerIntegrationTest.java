@@ -1,19 +1,16 @@
 package com.andrei.sasu.backend.rest;
 
 import com.andrei.sasu.backend.BackendApplication;
-import com.andrei.sasu.backend.exceptions.RestResponseEntityExceptionHandler;
 import com.andrei.sasu.backend.model.AccountType;
 import com.andrei.sasu.backend.model.CreateAccountRequest;
 import com.andrei.sasu.backend.model.entities.Account;
 import com.andrei.sasu.backend.model.entities.User;
 import com.andrei.sasu.backend.repository.UserRepository;
 import com.andrei.sasu.backend.security.jwt.JWTUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;

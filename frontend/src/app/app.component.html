@@ -1,0 +1,17 @@
+<div id="banking-app">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">Banking App</a>
+
+    <ul class="navbar-nav ml-auto">
+      <li *ngIf="!isLoggedIn" class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item">
+        <a href class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
