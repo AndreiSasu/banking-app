@@ -33,9 +33,9 @@ public class WorkingDaysTest {
 
         Assertions.assertThat(workingDays.isOpen(nextMonday)).isTrue();
 
-        LocalDateTime nextFriday = LocalDateTime.now().with(TemporalAdjusters.previous(DayOfWeek.FRIDAY));
+        LocalDateTime previousFriday = LocalDateTime.now().with(TemporalAdjusters.previous(DayOfWeek.FRIDAY));
 
-        Assertions.assertThat(workingDays.isOpen(nextFriday)).isTrue();
+        Assertions.assertThat(workingDays.isOpen(previousFriday)).isTrue();
     }
 
     @Test
