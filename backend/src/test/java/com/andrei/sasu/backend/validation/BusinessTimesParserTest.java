@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
+import java.time.DayOfWeek;
 
 public class BusinessTimesParserTest {
 
@@ -34,18 +35,18 @@ public class BusinessTimesParserTest {
         final Throwable throwable = Assertions.catchThrowable(() ->  BusinessTimesParser.getWorkingDays( "Today-Tomorrow"));
         Assertions.assertThat(throwable)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Days of week range must match Mon-Fri format, got Today-Tomorrow");
+                .hasMessage("Days of week range must match MONDAY-FRIDAY format, got Today-Tomorrow");
     }
 
     @Test
     public void testWorkingDaysHappyPath() {
-        WorkingDays workingDays = BusinessTimesParser.getWorkingDays("Mon-Fri");
-        Assertions.assertThat(workingDays.getStartDayOfWeek()).isEqualTo(2);
-        Assertions.assertThat(workingDays.getEndDayOfWeek()).isEqualTo(6);
+        WorkingDays workingDays = BusinessTimesParser.getWorkingDays("MONDAY-FRIDAY");
+        Assertions.assertThat(workingDays.getStartDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+        Assertions.assertThat(workingDays.getEndDayOfWeek()).isEqualTo(DayOfWeek.FRIDAY);
         // 7 days / week
-        workingDays = BusinessTimesParser.getWorkingDays("Sun-Sat");
+        workingDays = BusinessTimesParser.getWorkingDays("MONDAY-SUNDAY");
 
-        Assertions.assertThat(workingDays.getStartDayOfWeek()).isEqualTo(1);
-        Assertions.assertThat(workingDays.getEndDayOfWeek()).isEqualTo(7);
+        Assertions.assertThat(workingDays.getStartDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+        Assertions.assertThat(workingDays.getEndDayOfWeek()).isEqualTo(DayOfWeek.SUNDAY);
     }
 }

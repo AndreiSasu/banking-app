@@ -3,6 +3,7 @@ package com.andrei.sasu.backend.validation;
 import java.time.LocalDateTime;
 
 public class WorkingHours {
+
     final int startHour;
     final int startMinute;
 
@@ -33,10 +34,13 @@ public class WorkingHours {
     }
 
     public boolean isOpen(final LocalDateTime localDateTime) {
+
         final LocalDateTime openTime = LocalDateTime.of(localDateTime.getYear(), localDateTime.getMonth(),
                 localDateTime.getDayOfMonth(), startHour, startMinute);
         final LocalDateTime closingTime = LocalDateTime.of(localDateTime.getYear(), localDateTime.getMonth(),
                 localDateTime.getDayOfMonth(), endHour, endMinute);
-        return localDateTime.isAfter(openTime) && localDateTime.isBefore(closingTime);
+
+        return (localDateTime.isAfter(openTime) || localDateTime.isEqual(openTime)) &&
+                (localDateTime.isBefore(closingTime) || localDateTime.isEqual(closingTime));
     }
 }

@@ -1,26 +1,27 @@
 package com.andrei.sasu.backend.validation;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public class WorkingDays {
-    final int startDayOfWeek;
-    final int endDayOfWeek;
+    final DayOfWeek startDayOfWeek;
+    final DayOfWeek endDayOfWeek;
 
-    public WorkingDays(int startDayOfWeek, int endDayOfWeek) {
+    public WorkingDays(DayOfWeek startDayOfWeek, DayOfWeek endDayOfWeek) {
         this.startDayOfWeek = startDayOfWeek;
         this.endDayOfWeek = endDayOfWeek;
     }
 
-    public int getStartDayOfWeek() {
+    public DayOfWeek getStartDayOfWeek() {
         return startDayOfWeek;
     }
 
-    public int getEndDayOfWeek() {
+    public DayOfWeek getEndDayOfWeek() {
         return endDayOfWeek;
     }
 
     public boolean isOpen(final LocalDateTime localDateTime) {
-        return localDateTime.getDayOfWeek().getValue() >= startDayOfWeek &&
-                localDateTime.getDayOfWeek().getValue() <= endDayOfWeek;
+        return localDateTime.getDayOfWeek().getValue() >= startDayOfWeek.getValue() &&
+                localDateTime.getDayOfWeek().getValue() <= endDayOfWeek.getValue();
     }
 }
