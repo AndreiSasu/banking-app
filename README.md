@@ -24,22 +24,21 @@ Use the `accessToken` for every subsequent request:
 
 ```
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTkzMjYzNzI3LCJleHAiOjE1OTMzNTAxMjd9.I3hqOMgCdbgvdCFKK-j5vEjGjFIiuSqLEgwWHCw5dp8pieInD5iUlvCom5v2O2JFg3wyfePsZ0J1xROL6lrkVQ" -d "{\"accountType\": \"SAVINGS\",\"currency\": \"USD\"}" http://localhost:8080/api/v1/accounts
+```
 
 
 Successful Response: 
 
-{"iban":"IS817587120112338450608879","currency":"USD","accountType":"SAVINGS"}
+`{"iban":"IS817587120112338450608879","currency":"USD","accountType":"SAVINGS"}`
 
 
 User already has savings account response: 
 
-{"message":"createAccount.createAccountRequest: Only one savings account is allowed per user.","timestamp":1593264430,"statusCode":400,"statusReason":"Bad Request"}
+`{"message":"createAccount.createAccountRequest: Only one savings account is allowed per user.","timestamp":1593264430,"statusCode":400,"statusReason":"Bad Request"}`
 
 Invalid working hours response: 
 
-{"message":"createAccount.createAccountRequest: Invalid working hours.","timestamp":1593264090,"statusCode":400,"statusReason":"Bad Request"}
-```
-
+`{"message":"createAccount.createAccountRequest: Invalid working hours.","timestamp":1593264090,"statusCode":400,"statusReason":"Bad Request"}`
 
 ## Frontend
 #### Angular 9 + Bootstrap
