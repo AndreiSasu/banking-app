@@ -51,15 +51,15 @@ npm install
 npm start
 ```
 
-Open http://localhost:4200 , you should see the login page: 
+Open http://localhost:4200 , you should see the login page (user / password123): 
 
-<table>
-  <tr>
-     <td>Login page</td>
-     <td>Create account page</td>
-  </tr>
-  <tr>
-    <td><img src="img/login.png" width=480 height=200></td>
-    <td><img src="img/create_account.png" width=480 height=200></td>
-  </tr>
- </table>
+
+<img src="img/login.png" width=480 height=200>
+
+
+Successful account creation:
+<img src="img/successful.png" width=480 height=200>
+
+Error message example:
+
+<img src="img/invalid.png" width=480 height=200>
