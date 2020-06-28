@@ -1,10 +1,7 @@
 package com.andrei.sasu.backend.security.jwt;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,11 +14,9 @@ import java.io.IOException;
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     private JWTUtils jwtUtils;
-    private UserDetailsService userDetailsService;
 
-    public AuthTokenFilter(JWTUtils jwtUtils, UserDetailsService userDetailsService) {
+    public AuthTokenFilter(JWTUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
-        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -29,14 +24,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String jwt = parseJwt(request);
-        if (!StringUtils.isEmpty(jwt) && jwtUtils.validateJwtToken(jwt)) {
-            String username = jwtUtils.getUserNameFromJwtToken(jwt);
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-                    userDetails.getAuthorities());
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
+        if (!StringUtils.isEmpty(jwt) && jwtUtils.isValidToken(jwt)) {
+            Authentication authentication = jwtUtils.getAuthenticationFromToken(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

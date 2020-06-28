@@ -1,6 +1,7 @@
 package com.andrei.sasu.backend.rest;
 
 import com.andrei.sasu.backend.BackendApplication;
+import com.andrei.sasu.backend.TestUtils;
 import com.andrei.sasu.backend.model.AccountType;
 import com.andrei.sasu.backend.model.CreateAccountRequest;
 import com.andrei.sasu.backend.model.entities.Account;
@@ -67,15 +68,15 @@ public class AccountControllerIntegrationTest {
     @MockBean
     private WorkingDays workingDays;
 
+    @Autowired
+    private TestUtils testUtils;
+
     @BeforeEach
     public void setup() {
-        final User userNoSavingsAccount = new User();
-        userNoSavingsAccount.setUserName("user_no_account");
-        userNoSavingsAccount.setPassword("password");
+        final User userNoSavingsAccount = testUtils.getUser("user_no_account", "password");
 
-        final User userWithSavingsAccount = new User();
-        userWithSavingsAccount.setUserName("user_savings_account");
-        userWithSavingsAccount.setPassword("password");
+        final User userWithSavingsAccount = testUtils.getUser("user_savings_account", "password");
+
         final Account account = new Account();
         account.setIban(faker.finance().iban());
         account.setAccountType(AccountType.SAVINGS);
@@ -150,6 +151,21 @@ public class AccountControllerIntegrationTest {
                 .andExpect(jsonPath("$.timestamp").isNotEmpty())
                 .andExpect(jsonPath("$.statusCode").value(400))
                 .andExpect(jsonPath("$.statusReason").value("Bad Request"));
+    }
+
+
+    @Test
+    public void testAccountControllerRequiresAuthentication() throws Exception {
+        final CreateAccountRequest createAccountRequest = new CreateAccountRequest();
+        createAccountRequest.setCurrency(Currency.getInstance("USD"));
+        createAccountRequest.setAccountType(AccountType.SAVINGS);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/accounts")
+                .content(objectMapper.writeValueAsString(createAccountRequest))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                .andExpect(jsonPath("$.iban").doesNotExist())
+                .andExpect(jsonPath("$.currency").doesNotExist());
     }
 
     private String generateTokenForUserName(final String userName) {
