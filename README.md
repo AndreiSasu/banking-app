@@ -1,9 +1,10 @@
 # Banking App
 
 ## Backend 
-#### Spring Boot: REST, JPA (H2 db), Username & Password authentication + JWT  
+#### Prerequisites: Java 11 and Maven installed. 
 
-#### Prerequisites: Java 11 and Maven installed
+#### Stack: Spring Boot, REST, JPA (H2 db), Username & Password authentication + JWT  
+
 
 ```
 cd backend
@@ -43,8 +44,8 @@ Invalid working hours response:
 `{"message":"createAccount.createAccountRequest: Invalid working hours.","timestamp":1593264090,"statusCode":400,"statusReason":"Bad Request"}`
 
 ## Frontend
-#### Angular 9 + Bootstrap
 #### Prerequisites: Node and Npm installed
+#### Stack: Angular 9 + Bootstrap
 
 ```
 cd frontend
