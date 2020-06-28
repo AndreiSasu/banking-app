@@ -50,15 +50,15 @@ cd frontend
 npm install 
 npm start
 ```
-Open http://localhost:4200
 
+### Open http://localhost:4200
 
 ### Login page (user / password123): 
-![alt-text-1](./img/login.png "title-1") 
+<img src="img/login.png" width=480 height=200></img>
 
 ###  Successful account creation:
-
-![alt-text-2](./img/successful.png "title-2")
+<img src="img/successful.png" width=480 height=200></img>
 
 ### Error message example:
-![alt-text-1](./img/invalid.png "title-1")
+<img src="img/invalid.png" width=480 height=200></img>
+
