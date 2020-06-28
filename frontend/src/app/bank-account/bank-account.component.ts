@@ -40,8 +40,8 @@ export class BankAccountComponent implements OnInit {
 
     this.bankAccountService.create(createBankAccountRequest).subscribe(bankAccount => {
       this.bankAccount = bankAccount;
-    }, error => {
-      this.error = error;
+    }, httpErrorResponse => {
+      this.error = httpErrorResponse.error;
     });
   }
 
