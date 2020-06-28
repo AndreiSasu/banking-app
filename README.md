@@ -51,14 +51,14 @@ npm install
 npm start
 ```
 
-### Open http://localhost:4200
+Open http://localhost:4200
 
-### Login page (user / password123): 
+#### Login page (user / password123): 
 <img src="img/login.png" width=480 height=200></img>
 
-###  Successful account creation:
+####  Successful account creation:
 <img src="img/successful.png" width=480 height=200></img>
 
-### Error message example:
+#### Error message example:
 <img src="img/invalid.png" width=480 height=200></img>
 
