@@ -1,10 +1,11 @@
 package com.andrei.sasu.backend.rest;
 
 import com.andrei.sasu.backend.BackendApplication;
+import com.andrei.sasu.backend.TestUtils;
 import com.andrei.sasu.backend.model.LoginRequest;
-import com.andrei.sasu.backend.model.entities.User;
 import com.andrei.sasu.backend.repository.UserRepository;
 import com.andrei.sasu.backend.security.jwt.JWTUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import org.assertj.core.api.Assertions;
@@ -41,13 +42,13 @@ public class AuthenticationControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private TestUtils testUtils;
+
     @Test
     public void testUserCanLogin() throws Exception {
-        User user = new User();
-        user.setUserName("testuser");
-        user.setPassword(passwordEncoder.encode("test"));
 
-        userRepository.saveAndFlush(user);
+        userRepository.saveAndFlush(testUtils.getUser("testuser", "test"));
 
         LoginRequest login = new LoginRequest();
         login.setUserName("testuser");
@@ -62,6 +63,20 @@ public class AuthenticationControllerIntegrationTest {
 
         String token = JsonPath.read(result.getResponse().getContentAsString(), "$.accessToken");
 
-        Assertions.assertThat(jwtUtils.validateJwtToken(token)).isTrue();
+        Assertions.assertThat(jwtUtils.isValidToken(token)).isTrue();
+    }
+
+    @Test
+    public void testInvalidLogin() throws Exception {
+        LoginRequest login = new LoginRequest();
+        login.setUserName("wrong-user");
+        login.setPassword("wrong-password");
+
+        mockMvc.perform(post("/api/v1/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(login)))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.accessToken").doesNotExist())
+                .andExpect(header().doesNotExist("Authorization"));
     }
 }
