@@ -33,6 +33,12 @@ public class WorkingHours {
         return endMinute;
     }
 
+    /**
+     * Verifies if given {@link LocalDateTime} is within business hours from a hours and minute perspective
+     * Note: This does not take into account working days, use together with {@link WorkingDays}
+     * @param localDateTime
+     * @return
+     */
     public boolean isOpen(final LocalDateTime localDateTime) {
 
         final LocalDateTime openTime = LocalDateTime.of(localDateTime.getYear(), localDateTime.getMonth(),

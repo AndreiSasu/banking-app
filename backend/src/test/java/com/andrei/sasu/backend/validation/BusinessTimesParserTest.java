@@ -19,7 +19,7 @@ public class BusinessTimesParserTest {
 
     @Test
     public void testValidWorkingHoursHappyPath() throws ParseException {
-        final WorkingHours workingHours = BusinessTimesParser.getWorkingHours("09:15-17:00");
+        WorkingHours workingHours = BusinessTimesParser.getWorkingHours("09:15-17:00");
         Assertions.assertThat(workingHours.getStartHour())
                 .isEqualTo(9);
         Assertions.assertThat(workingHours.getStartMinute())
@@ -28,6 +28,16 @@ public class BusinessTimesParserTest {
                 .isEqualTo(17);
         Assertions.assertThat(workingHours.getEndMinute())
                 .isEqualTo(0);
+
+        workingHours = BusinessTimesParser.getWorkingHours("00:00-23:59");
+        Assertions.assertThat(workingHours.getStartHour())
+                .isEqualTo(0);
+        Assertions.assertThat(workingHours.getStartMinute())
+                .isEqualTo(0);
+        Assertions.assertThat(workingHours.getEndHour())
+                .isEqualTo(23);
+        Assertions.assertThat(workingHours.getEndMinute())
+                .isEqualTo(59);
     }
 
     @Test
