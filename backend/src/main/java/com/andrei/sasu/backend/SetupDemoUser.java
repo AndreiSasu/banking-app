@@ -1,5 +1,7 @@
 package com.andrei.sasu.backend;
 
+import com.andrei.sasu.backend.model.Roles;
+import com.andrei.sasu.backend.model.entities.Role;
 import com.andrei.sasu.backend.model.entities.User;
 import com.andrei.sasu.backend.repository.UserRepository;
 import org.slf4j.Logger;
@@ -9,6 +11,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 public class SetupDemoUser implements ApplicationRunner {
@@ -30,10 +34,13 @@ public class SetupDemoUser implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args)  {
         final User user = new User();
         user.setUserName(demoUserName);
         user.setPassword(passwordEncoder.encode(demoPassword));
+        final Role role = new Role();
+        role.setName(Roles.USER.name());
+        user.setRoles(Set.of(role));
         userRepository.save(user);
         logger.info("added demo user");
     }
