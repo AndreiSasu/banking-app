@@ -18,12 +18,14 @@ curl -X POST -H "Content-Type: application/json" -d "{\"userName\": \"user\",\"p
 ```
 You should get a similar response: 
 
-`{"id":1,"username":"user","roles":[],"accessToken":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTkzMjYzNzI3LCJleHAiOjE1OTMzNTAxMjd9.I3hqOMgCdbgvdCFKK-j5vEjGjFIiuSqLEgwWHCw5dp8pieInD5iUlvCom5v2O2JFg3wyfePsZ0J1xROL6lrkVQ","tokenType":"Bearer"}`
+`{
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6IlVTRVIiLCJleHAiOjE1OTM0MzMyMzl9.M9bH0t4QK_U6pU4HkDm5AmYYdjTlPhpCYJQsbnHNTzHj-W4XS4YPhjXC6Ks0TuENfmQPDuYTT7ZuXVYBqTBurg"
+}`
 
 Use the `accessToken` for every subsequent request: 
 
 ```
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTkzMjYzNzI3LCJleHAiOjE1OTMzNTAxMjd9.I3hqOMgCdbgvdCFKK-j5vEjGjFIiuSqLEgwWHCw5dp8pieInD5iUlvCom5v2O2JFg3wyfePsZ0J1xROL6lrkVQ" -d "{\"accountType\": \"SAVINGS\",\"currency\": \"USD\"}" http://localhost:8080/api/v1/accounts
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6IlVTRVIiLCJleHAiOjE1OTM0MzMyMzl9.M9bH0t4QK_U6pU4HkDm5AmYYdjTlPhpCYJQsbnHNTzHj-W4XS4YPhjXC6Ks0TuENfmQPDuYTT7ZuXVYBqTBurg" -d "{\"accountType\": \"SAVINGS\",\"currency\": \"USD\"}" http://localhost:8080/api/v1/accounts
 ```
 
 
